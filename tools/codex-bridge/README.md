@@ -106,6 +106,18 @@ Check Docker-to-host connectivity without inference:
 docker exec pentagi wget -qO- -T 15 http://host.docker.internal:8765/healthz
 ```
 
+The included `ctester.yml` is a three-case suite for PentAGI's own `ctester`: text completion, a streaming native function call, and JSON mode. It can be selected with `-tests tools/codex-bridge/ctester.yml -agents simple,simple_json -groups basic,json -workers 1` together with the custom provider environment and configuration above.
+
+### Validation on November 26, 2026
+
+- Offline adapter tests: 17 passed on Windows and in the fork's Ubuntu GitHub Actions job.
+- Live ChatGPT Plus smoke checks: native tool call, tool-result continuation, and structured JSON passed using the account's default `gpt-6.2-sol` model.
+- PentAGI 2.2.0's own containerized provider tester: 3/3 passed, including streaming function calls.
+- Docker-to-host connectivity and the existing WSL deployment's combined Compose configuration passed.
+- The unchanged Go `pconfig` tests passed. One unchanged `custom` test failed on French Windows because its assertion requires the English string `connection refused`, while Windows returned its localized equivalent. The adapter does not modify that backend code.
+
+These are provider integration checks, not a complete autonomous assessment. The existing PentAGI service was not switched to the override during validation.
+
 ## Supported behavior and limits
 
 - `GET /v1/models` returns the account's startup model catalog plus `codex-default`. Restart the bridge to refresh the catalog after an account or entitlement change.
