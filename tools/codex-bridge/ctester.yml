@@ -1,0 +1,45 @@
+- id: codex_text
+  name: Codex subscription text completion
+  type: completion
+  group: basic
+  prompt: 'Reply with exactly BRIDGE_OK and nothing else.'
+  expected: BRIDGE_OK
+  streaming: false
+
+- id: codex_native_tool
+  name: Codex subscription streaming function call
+  type: tool
+  group: basic
+  messages:
+    - role: user
+      content: 'Call add_numbers with a=17 and b=25.'
+  tools:
+    - name: add_numbers
+      description: Add two integers using the external calculator.
+      parameters:
+        type: object
+        properties:
+          a:
+            type: integer
+          b:
+            type: integer
+        required: [a, b]
+        additionalProperties: false
+  tool_choice: required
+  expected:
+    - function_name: add_numbers
+      arguments:
+        a: 17
+        b: 25
+  streaming: true
+
+- id: codex_json
+  name: Codex subscription JSON mode
+  type: json
+  group: json
+  messages:
+    - role: user
+      content: 'Return a JSON object with one key, ok, set to true.'
+  expected:
+    ok: true
+  streaming: false

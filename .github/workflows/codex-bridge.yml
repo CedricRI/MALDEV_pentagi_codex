@@ -1,0 +1,32 @@
+name: Codex subscription bridge
+
+on:
+  push:
+    paths:
+      - tools/codex-bridge/**
+      - docker-compose.codex.yml
+      - examples/configs/codex-subscription.provider.yml
+      - .github/workflows/codex-bridge.yml
+  pull_request:
+    paths:
+      - tools/codex-bridge/**
+      - docker-compose.codex.yml
+      - examples/configs/codex-subscription.provider.yml
+      - .github/workflows/codex-bridge.yml
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Offline protocol and HTTP tests
+        working-directory: tools/codex-bridge
+        run: node --test test/*.test.mjs
+      - name: Validate WSL helper syntax
+        run: bash -n tools/codex-bridge/pentagi.sh

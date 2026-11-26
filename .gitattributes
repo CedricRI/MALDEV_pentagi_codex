@@ -1,0 +1,4 @@
+tools/codex-bridge/** text eol=lf
+docker-compose.codex.yml text eol=lf
+examples/configs/codex-subscription.provider.yml text eol=lf
+.github/workflows/codex-bridge.yml text eol=lf

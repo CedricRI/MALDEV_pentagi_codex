@@ -1,5 +1,7 @@
 # PentAGI
 
+This fork adds [ChatGPT subscription access through the local Codex harness](tools/codex-bridge/README.md). It includes a host-side adapter, tests, and an optional Docker Compose override; no OpenAI API key or PentAGI backend rebuild is required.
+
 <div align="center" style="font-size: 1.5em; margin: 20px 0;">
     <strong>P</strong>enetration testing <strong>A</strong>rtificial <strong>G</strong>eneral <strong>I</strong>ntelligence
 </div>

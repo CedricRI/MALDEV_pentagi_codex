@@ -1,0 +1,17 @@
+services:
+  pentagi:
+    environment:
+      LLM_SERVER_URL: http://host.docker.internal:${CODEX_BRIDGE_PORT:-8765}/v1
+      LLM_SERVER_KEY: ${CODEX_BRIDGE_KEY:?Set CODEX_BRIDGE_KEY to the local bridge token}
+      LLM_SERVER_MODEL: ${CODEX_BRIDGE_MODEL:-codex-default}
+      LLM_SERVER_PROVIDER: ""
+      LLM_SERVER_API_TYPE: openai
+      LLM_SERVER_CONFIG_PATH: /opt/pentagi/conf/codex-subscription.provider.yml
+      LLM_FALLBACK_PROVIDER: ""
+      EMBEDDING_PROVIDER: ${CODEX_BRIDGE_EMBEDDING_PROVIDER:-none}
+      GRAPHITI_ENABLED: "false"
+      HTTP_CLIENT_TIMEOUT: ${CODEX_BRIDGE_HTTP_TIMEOUT:-240}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - ${CODEX_BRIDGE_PROVIDER_CONFIG:-./examples/configs/codex-subscription.provider.yml}:/opt/pentagi/conf/codex-subscription.provider.yml:ro

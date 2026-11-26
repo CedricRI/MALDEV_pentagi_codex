@@ -1,0 +1,24 @@
+simple: &codex
+  n: 1
+  max_tokens: 16384
+  reasoning:
+    effort: low
+  price:
+    input: 0
+    output: 0
+
+simple_json:
+  <<: *codex
+  json: true
+
+primary_agent: *codex
+assistant: *codex
+generator: *codex
+refiner: *codex
+adviser: *codex
+reflector: *codex
+searcher: *codex
+enricher: *codex
+coder: *codex
+installer: *codex
+pentester: *codex
